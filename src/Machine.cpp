@@ -3,7 +3,7 @@
 
 
 Instruction Machine::parse(const std::string& line) const{
-
+	boost::regex expr{"\\w+\\s\\w+"};
 }
 
 void Machine::loadInstruction(Instruction instruction){
