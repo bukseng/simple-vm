@@ -9,8 +9,12 @@ int main(int argc, char* argv[]){
 	Machine machine;
 	std::string line;
 	std::ifstream reader(argv[1]);
-	while (std::getline (reader, line)) {
-		//machine.loadInstruction(machine.parse(line));
+	try {
+		while (std::getline (reader, line)) {
+			machine.loadInstruction(machine.parse(line));
+		}		
+	}catch(const char* err){
+		std::cerr << err << ": " << line <<  std::endl;
 	}
 	reader.close();
 	return 0;

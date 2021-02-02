@@ -2,8 +2,9 @@
 #define MEMORY_H
 #include "Instruction.h"
 #include<iostream>
+#include<cctype>
+#include<regex>
 #include<string>
-#include<boost/regex.hpp>
 #include<unordered_map>
 #define MAXN 1000
 
@@ -41,45 +42,18 @@ enum OpCode {
 class Machine{
 	
 private:
-	Instruction ins[MAXN];
+	Instruction* ins[MAXN];
 	int stk[MAXN];
 	int reg[8];
 	int ins_ptr;
 	int stk_ptr;
-	std::unordered_map<std::string, int> oTable = {
-		{"HALT", OpCode::HALT},
-		{"READ", OpCode::READ},
-		{"WRITE", OpCode::WRITE},
-		{"NOP", OpCode::NOP},
-		{"SET", OpCode::SET},
-		{"INC", OpCode::INC},
-		{"DEC", OpCode::DEC},
-		{"CPY", OpCode::CPY},
-		{"ADD", OpCode::ADD},
-		{"SUB", OpCode::SUB},
-		{"NEG", OpCode::NEG},
-		{"MUL", OpCode::MUL},
-		{"DIV", OpCode::DIV},
-		{"MOD", OpCode::MOD},
-		{"JUMP", OpCode::JUMP},
-		{"JUMPR", OpCode::JUMPR},
-		{"JEQZ", OpCode::JEQZ},
-		{"JNEZ", OpCode::JNEZ},
-		{"JGTZ", OpCode::JGTZ},
-		{"JLTZ", OpCode::JLTZ},
-		{"CALL", OpCode::CALL},
-		{"PUSH", OpCode::PUSH},
-		{"POP", OpCode::POP},
-		{"LOAD", OpCode::LOAD},
-		{"STORE", OpCode::STORE},
-		{"LOADR", OpCode::LOADR},
-		{"STORER", OpCode::STORER}	
-	};
+	std::unordered_map<std::string, int> oTable;
 	
 public:
 	Machine(){
 		ins_ptr = 0;
 		stk_ptr = 0;
+		initMap();
 	}
 	
 	void add(const char& r1, const char& r2, const char& r3);
@@ -109,10 +83,12 @@ public:
 	void storer(const char& r1, const char& r2);
 	void push(const char& r1, const char& r2);
 	void pop(const char& r1, const char& r2);
-	
-	Instruction parse(const std::string& line) const;
-	void loadInstruction(Instruction instruction);
+
+	Instruction* parse(std::string& line);
+	void loadInstruction(Instruction* instruction);
+	void initMap();
 	void reset();
+	void toUpper(std::string& str);
 
 };
 
