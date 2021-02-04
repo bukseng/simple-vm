@@ -12,6 +12,7 @@ int main(int argc, char* argv[]){
 	try {
 		while (std::getline (reader, line)) {
 			machine.loadInstruction(machine.parse(line));
+			machine.validateInstruction();
 		}		
 	}catch(const char* err){
 		std::cerr << err << ": " << line <<  std::endl;

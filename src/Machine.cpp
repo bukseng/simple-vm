@@ -3,10 +3,10 @@
 Instruction* Machine::parse(std::string& line){
 	toUpper(line);
 	std::regex rgx_cmd{"^([A-Z]+)"};
-	std::regex rgx_3{"^([A-Z]+)\\s+([A-Z])\\s+([A-Z])\\s+([A-Z])\\s*$"};
-	std::regex rgx_2a{"^([A-Z]+)\\s+([A-Z])\\s+([A-Z])\\s*$"};
-	std::regex rgx_2b{"^([A-Z]+)\\s+([A-Z])\\s+([0-9]+)\\s*$"};
-	std::regex rgx_1a{"^([A-Z]+)\\s+([A-Z])\\s*$"};
+	std::regex rgx_3{"^([A-Z]+)\\s+([A-H])\\s+([A-H])\\s+([A-H])\\s*$"};
+	std::regex rgx_2a{"^([A-Z]+)\\s+([A-H])\\s+([A-H])\\s*$"};
+	std::regex rgx_2b{"^([A-Z]+)\\s+([A-H])\\s+([0-9]+)\\s*$"};
+	std::regex rgx_1a{"^([A-Z]+)\\s+([A-H])\\s*$"};
 	std::regex rgx_1b{"^([A-Z]+)\\s+([0-9]+)\\s*$"};
 	std::regex rgx_0{"^([A-Z]+)\\s*$"};
 	std::smatch matches;
@@ -33,6 +33,10 @@ Instruction* Machine::parse(std::string& line){
 
 void Machine::loadInstruction(Instruction* instruction){
 	ins[ins_ptr++] = instruction;
+}
+
+void Machine::validateInstruction() const{
+	if(!ins[ins_ptr - 1]->validate()) throw "Invalid argument/s";
 }
 
 void Machine::reset(){
