@@ -1,1 +1,6 @@
-ADD A B 
+read a
+set b 4
+add c a b
+write c
+
+

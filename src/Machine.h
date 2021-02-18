@@ -48,6 +48,7 @@ private:
 	int reg[8];
 	int ins_ptr;
 	int stk_ptr;
+	int N;
 	std::unordered_map<std::string, int> oTable;
 	
 public:
@@ -57,39 +58,40 @@ public:
 		initMap();
 	}
 	
-	void add(const char& r1, const char& r2, const char& r3);
-	void sub(const char& r1, const char& r2, const char& r3);
-	void mul(const char& r1, const char& r2, const char& r3);
-	void div(const char& r1, const char& r2, const char& r3);
-	void mod(const char& r1, const char& r2, const char& r3);
-	void neg(const char& r1, const char& r2);
-	void cpy(const char& r1, const char& r2);
-	void loadr(const char& r1, const char& r2);
-	void storer(const char& r1, const char& r2);
-	void push(const char& r1, const char& r2);
-	void pop(const char& r1, const char& r2);
-	void inc(const char& r1, const int& a1);
-	void dec(const char& r1, const int& a1);
-	void set(const char& r1, const int& a1);
-	void jeqz(const char& r1, const int& a1);
-	void jnez(const char& r1, const int& a1);
-	void jgtz(const char& r1, const int& a1);
-	void jltz(const char& r1, const int& a1);
-	void call(const char& r1, const int& a1);
-	void load(const char& r1, const int& a1);
-	void store(const char& r1, const int& a1);
-	void read(const char& r1);
-	void write(const char& r1);
-	void jumpr(const char& r1);
-	void jump(const int& a1);
-	void halt() const;
-	void nop() const;
+	int add(const char& r1, const char& r2, const char& r3);
+	int sub(const char& r1, const char& r2, const char& r3);
+	int mul(const char& r1, const char& r2, const char& r3);
+	int div(const char& r1, const char& r2, const char& r3);
+	int mod(const char& r1, const char& r2, const char& r3);
+	int neg(const char& r1, const char& r2);
+	int cpy(const char& r1, const char& r2);
+	int loadr(const char& r1, const char& r2);
+	int storer(const char& r1, const char& r2);
+	int push(const char& r1, const char& r2);
+	int pop(const char& r1, const char& r2);
+	int inc(const char& r1, const int& a1);
+	int dec(const char& r1, const int& a1);
+	int set(const char& r1, const int& a1);
+	int jeqz(const char& r1, const int& a1);
+	int jnez(const char& r1, const int& a1);
+	int jgtz(const char& r1, const int& a1);
+	int jltz(const char& r1, const int& a1);
+	int call(const char& r1, const int& a1);
+	int load(const char& r1, const int& a1);
+	int store(const char& r1, const int& a1);
+	int read(const char& r1);
+	int write(const char& r1);
+	int jumpr(const char& r1);
+	int jump(const int& a1);
+	int halt() const;
+	int nop() const;
 
 	Instruction* parse(std::string& line);
 	void validateInstruction() const; 
 	void loadInstruction(Instruction* instruction);
+	int executeInstruction();
+	void executeProgram();
 	void initMap();
-	void reset();
 	void toUpper(std::string& str);
 
 };

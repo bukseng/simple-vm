@@ -21,23 +21,18 @@ public:
 	bool validate() const{
 		if(opcode == 0 || opcode == 1){
 			if(argc == 0) return true;
-			return false;
 		}else if(opcode > 1 && opcode < 5){
 			if(argc == 1 && reg1 != '\0') return true;
-			return false;
 		}else if(opcode == 5){
 			if(argc == 1 && reg1 == '\0' && reg2 == '\0' && reg3 == '\0') return true;
-			return false;
 		}else if(opcode > 5 && opcode < 11){
 			if(argc == 3 && reg1 != '\0' && reg2 != '\0' && reg3 != '\0') return true;
-			return false;
 		}else if(opcode > 10 && opcode < 17){
 			if(argc == 2 && reg1 != '\0' && reg2 != '\0') return true;
-			return false;
 		}else{
 			if(argc == 2 && reg1 != '\0' && reg2 == '\0' && reg3 == '\0') return true;
-			return false;
 		}
+		return false;
 	}
 	
 };

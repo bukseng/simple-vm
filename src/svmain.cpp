@@ -13,9 +13,10 @@ int main(int argc, char* argv[]){
 		while (std::getline (reader, line)) {
 			machine.loadInstruction(machine.parse(line));
 			machine.validateInstruction();
-		}		
+		}	
+		machine.executeProgram();
 	}catch(const char* err){
-		std::cerr << err << ": " << line <<  std::endl;
+		std::cerr << err <<  std::endl;
 	}
 	reader.close();
 	return 0;
