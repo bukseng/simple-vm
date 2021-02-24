@@ -2,5 +2,9 @@ read a
 set b 4
 add c a b
 write c
-
-
+set e 100
+storer c e
+mul c c c
+write c
+loadr c e
+write c

@@ -5,9 +5,9 @@ Instruction* Machine::parse(std::string& line){
 	std::regex rgx_cmd{"^([A-Z]+)"};
 	std::regex rgx_3{"^([A-Z]+)\\s+([A-H])\\s+([A-H])\\s+([A-H])\\s*$"};
 	std::regex rgx_2a{"^([A-Z]+)\\s+([A-H])\\s+([A-H])\\s*$"};
-	std::regex rgx_2b{"^([A-Z]+)\\s+([A-H])\\s+([0-9]+)\\s*$"};
+	std::regex rgx_2b{"^([A-Z]+)\\s+([A-H])\\s+([\\-0-9]+)\\s*$"};
 	std::regex rgx_1a{"^([A-Z]+)\\s+([A-H])\\s*$"};
-	std::regex rgx_1b{"^([A-Z]+)\\s+([0-9]+)\\s*$"};
+	std::regex rgx_1b{"^([A-Z]+)\\s+([\\-0-9]+)\\s*$"};
 	std::regex rgx_0{"^([A-Z]+)\\s*$"};
 	std::regex rgx_none{"^\\s*$"};
 	std::smatch matches;
@@ -228,18 +228,26 @@ int Machine::cpy(const char& r1, const char& r2){
 }
 
 int Machine::loadr(const char& r1, const char& r2){
+	if(reg[r2-'A'] >= MAXN || reg[r2-'A'] < 0) throw "Stack index out of bounds";
+	reg[r1-'A'] = stk[reg[r2-'A']];	
 	return 0;
 }
 
 int Machine::storer(const char& r1, const char& r2){
+	if (reg[r2-'A'] >= MAXN  || reg[r2-'A'] < 0) throw "Stack index out of bounds";
+	stk[reg[r2-'A']] = reg[r1-'A'];
 	return 0;
 }
 
 int Machine::push(const char& r1, const char& r2){
+	if(reg[r2-'A'] >= MAXN || reg[r2-'A'] < 0) throw "Stack index out of bounds";
+	reg[r1-'A'] = stk[reg[r2-'A']];	
 	return 0;
 }
 
 int Machine::pop(const char& r1, const char& r2){
+	if (reg[r2-'A'] >= MAXN  || reg[r2-'A'] < 0) throw "Stack index out of bounds";
+	stk[reg[r2-'A']] = reg[r1-'A'];
 	return 0;
 }
 
@@ -279,14 +287,19 @@ int Machine::jltz(const char& r1, const int& a1){
 }
 
 int Machine::call(const char& r1, const int& a1){
-	return 0;
+	reg[r1-'A'] = ins_ptr + 1;
+	return a1;
 }
 
 int Machine::load(const char& r1, const int& a1){
+	if(a1 >= MAXN || a1 < 0) throw "Stack index out of bounds";
+	reg[r1-'A'] = stk[a1];
 	return 0;
 }
 
 int Machine::store(const char& r1, const int& a1){
+	if (a1 >= MAXN  || a1 < 0) throw "Stack index out of bounds";
+	stk[a1] = reg[r1-'A'];
 	return 0;
 }
 

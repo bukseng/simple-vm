@@ -47,14 +47,12 @@ private:
 	int stk[MAXN];
 	int reg[8];
 	int ins_ptr;
-	int stk_ptr;
 	int N;
 	std::unordered_map<std::string, int> oTable;
 	
 public:
 	Machine(){
 		ins_ptr = 0;
-		stk_ptr = 0;
 		initMap();
 	}
 	
